@@ -1,0 +1,52 @@
+<html lang="ru">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>test</title>
+</head>
+<body>
+
+<form action="">
+	<input type="text" name="username" id="username" value="" placeholder="enter login" min-length="1" required>
+	<input type="text" name="userpass" id="userpass" value="" placeholder="enter password" min-length="1" required>
+	<button type="submit" id="login-btn">enter</button>
+</form>
+
+<script>
+var name = "test";
+var password = "1234";
+
+function ready() {	
+
+	var lName = localStorage.getItem("name");
+	var lPass = localStorage.getItem("password");
+	console.log(lName,lPass);
+	if(name == lName && password == lPass){
+		window.location.href = "logged.html";
+	}
+
+	var btn = document.getElementById("login-btn");	
+	btn.addEventListener("click", function(event){
+		event.preventDefault();		
+		var username = document.getElementById("username").value;
+		var userpass = document.getElementById("userpass").value;
+		if(username == '' || userpass == ''){
+			alert('empty');
+		}else{
+			if(name == username && password == userpass){
+				localStorage.setItem("name", username);
+				localStorage.setItem("password", userpass);
+				window.location.href = "logged.html";
+			}
+			else if(name != username || password != userpass){
+				window.location.href = "fail.html";
+			}else{
+				return false;
+			}
+		}		
+	});		
+}
+
+document.addEventListener("DOMContentLoaded", ready);
+</script>
+</body>
+</html>
